@@ -29,7 +29,7 @@ def addition ():
 
 def search():
     with open(file_path, 'r', encoding='utf8') as open_book:
-        seach_param = input('Введите параметр для поиска: ' )
+        seach_param = (input('Введите параметр для поиска: ' ).title())
         for line in open_book:
             if seach_param in line:
                 print(line)
@@ -76,7 +76,7 @@ def tasks(task):
             delet(read())            
         case _:
             print('введите значение из меню: ')
-    # tasks(int(input('введите номер залачи от 1 до 6: ')))
+            tasks(int(input('введите номер залачи от 1 до 6: ')))
 tasks(int(input('введите номер залачи от 1 до 6: ')))
 
 
