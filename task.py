@@ -29,32 +29,35 @@ def addition ():
 
 def search():
     with open(file_path, 'r', encoding='utf8') as open_book:
-        seach_param = (input('Введите параметр для поиска: ' ).title())
+        seach_param = input('Введите параметр для поиска: ' )
         for line in open_book:
             if seach_param in line:
                 print(line)
 
 def delet(l):
-    delet_param = input('Введите контакт удаления: ' )
+    delet_param = (input('Введите контакт удаления: ' ).title())
     with open (file_path, 'w', encoding='utf8') as open_book:
         for line in l:
             if delet_param not in line:
-                open_book.writelines(line)
+               open_book.writelines(line)
 
 def edit(l):
-    seach_param = input('Введите параметр для поиска: ' )
+    seach_param = (input('Введите параметр для поиска: ' ).title())
     with open (file_path, 'w', encoding='utf8') as open_book:
         for line in l:
+            print(line)
             if seach_param in line:
-                print(line)
-                line = line.replace((input('Контакт который хотите поменять: ')), (input('Новые данные контакта: ')))
+                line = line.replace(seach_param, (input('Новые данные контакта: ').title()))
             open_book.writelines(line)
 
-def read():
+def read_all():
     with open(file_path, 'r', encoding='utf8') as open_book:
         for line in open_book:
             print()
-            print(line)      
+            print(line)  
+
+def read():
+    return open(file_path, 'r', encoding='utf8').readlines()
 
 def tasks(task):
    if task > 6: print('Вы ошиблись')
@@ -62,28 +65,18 @@ def tasks(task):
    else:
     match task:
         case 1: #    вывести все контакты
-            read()   
-            tasks(int(input('введите номер залачи от 1 до 6: ')))       
-
+            read_all()   
         case 2: # поиск контактов
             search()
-            tasks(int(input('введите номер залачи от 1 до 6: ')))
-
         case 3: # добавить контакт
             addition ()
-            tasks(int(input('введите номер залачи от 1 до 6: ')))
-
         case 4: # изменить контакт
             edit(read())
-            tasks(int(input('введите номер залачи от 1 до 6: ')))
-
         case 5: # удалить контакт
-            delet(read())
-            tasks(int(input('введите номер залачи от 1 до 6: ')))
-            
+            delet(read())            
         case _:
             print('введите значение из меню: ')
-            tasks(int(input('введите номер залачи от 1 до 6: ')))
+    # tasks(int(input('введите номер залачи от 1 до 6: ')))
 tasks(int(input('введите номер залачи от 1 до 6: ')))
 
 
