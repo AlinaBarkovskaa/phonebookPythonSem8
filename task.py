@@ -7,31 +7,26 @@
 # 1. Вывод всех контактов
 # 2. Поиск контакта
 # 3. Добавить контакт (сразу сохрорнять в файл)
-# 4. Выход по требованию пользователя
-# print('1 - вывести все контакты \n ')
-# print('2 - поиск контакта\n ')
-# print('3 - добавить контакт\n ')
-# print('4 - изменить данные контакта\n ')
-# print('5 - удалить контакт\n ')
-# print('6 - выход\n ')
+# 4. Выход по требованию пользователя 
+
 def print_menu():
-    print("""  
-    ------------------------------\n
+    print("""
+    ------------------------------- \n
     1 - вывести все контакты \n 
     2 - поиск контакта\n  
     3 - добавить контакт\n 
     4 - изменить данные контакта\n 
     5 - удалить контакт\n 
-    6 - выход\n 
-    ------------------------------\n
-     """)
+    6 - выход\n  
+    ------------------------------- \n 
+    """)
 
-def addition ():
+def addition():
     with open(file_path, 'a', encoding='utf8') as open_book:
-        add_n1 = (input('Введите фамилию: ' ).title())
-        add_n2 = (input('Введите Имя: ' ).title())
-        add_n3 = input('Введите телефон: ' )
-        new_line = add_n1 +' '+add_n2 +' '+ add_n3 
+        add_f = (input('Введите фамилию: ' ).title())
+        add_i = (input('Введите Имя: ' ).title())
+        add_tel = (input('Введите телефон: ' ).title())
+        new_line = add_f +' '+add_i +' '+ add_tel 
         open_book.writelines(f'\n{new_line}')
         print(new_line)
 
@@ -43,19 +38,25 @@ def search():
                 print(line)
 
 def delete(l):
-    delet_param = (input('Введите контакт удаления: ' ).title())
+    delete_param = (input('Введите контакт удаления: ' ).title())
     with open (file_path, 'w', encoding='utf8') as open_book:
         for line in l:
-            if delet_param not in line:
+            if delete_param in line:
+                print('Вы удалили контакт:', line)
+            elif delete_param not in line:
                open_book.writelines(line)
 
 def edit(l):
     seach_param = (input('Введите параметр для поиска: ' ).title())
     with open (file_path, 'w', encoding='utf8') as open_book:
         for line in l:
-            print(line)
             if seach_param in line:
-                line = line.replace(seach_param, (input('Новые данные контакта: ').title()))
+                print(line)
+                add_f = (input('Введите фамилию: ' ).title())
+                add_i = (input('Введите Имя: ' ).title())
+                add_tel = (input('Введите телефон: ' ).title())
+                new_line = add_f +' '+add_i +' '+ add_tel + '\n'
+                line = line.replace(line, new_line)
             open_book.writelines(line)
 
 def read_all():
@@ -72,16 +73,17 @@ def tasks(task):
    if task == 6: print('До свидания!')
    else:
     match task:
-        case 1: #  вывести все контакты
+        case 1: # вывести все контакты
             read_all()
             print_menu()
-            tasks(int(input('Введите номер задачи от 1 до 6: ')))  
+            tasks(int(input('Введите номер задачи от 1 до 6: ')))   
         case 2: # поиск контактов
             search()
             print_menu()
             tasks(int(input('Введите номер задачи от 1 до 6: ')))
         case 3: # добавить контакт
-            addition ()
+            addition()
+            print_menu()
             tasks(int(input('Введите номер задачи от 1 до 6: ')))
         case 4: # изменить контакт
             edit(read())
@@ -91,10 +93,7 @@ def tasks(task):
             delete(read())
             print_menu()
             tasks(int(input('Введите номер задачи от 1 до 6: ')))            
-        case _:
-            print('введите значение из меню: ')
-            tasks(int(input('Введите номер задачи от 1 до 6: '))) 
-file_path = 'phone_book.txt'             
+
+file_path = 'phone_book.txt'
 print_menu()
 tasks(int(input('Введите номер задачи от 1 до 6: ')))
-
